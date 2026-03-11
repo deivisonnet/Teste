@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Puzzle Deslizante</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#111;
+color:white;
+text-align:center;
+}
+
+h1{
+margin-top:15px;
+}
+
+#puzzle{
+width:300px;
+height:300px;
+margin:20px auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+grid-template-rows:repeat(3,1fr);
+gap:4px;
+}
+
+tile{
+background:#4CAF50;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+font-weight:bold;
+border-radius:10px;
+cursor:pointer;
+}
+
+.empty{
+background:transparent;
+}
+
+button{
+padding:10px 20px;
+font-size:18px;
+border:none;
+border-radius:8px;
+background:#2196F3;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Puzzle</h1>
+<p>Organize os números</p>
+
+<div id="puzzle"></div>
+
+<button onclick="shuffle()">Embaralhar</button>
+
+<script>
+
+let board=[1,2,3,4,5,6,7,8,0];
+
+function draw(){
+let puzzle=document.getElementById("puzzle");
+puzzle.innerHTML="";
+
+board.forEach((num,i)=>{
+let div=document.createElement("div");
+
+if(num===0){
+div.className="tile empty";
+}else{
+div.className="tile";
+div.textContent=num;
+div.onclick=()=>move(i);
+}
+
+puzzle.appendChild(div);
+});
+}
+
+function move(i){
+let empty=board.indexOf(0);
+
+let valid=[
+i-1,
+    i+1,
+    i-3,
+    i+3
+];
+
+if(valid.includes(empty)){[board[i],board[empty]]=[board[empty],board[i]];
+draw();
+checkWin();
+}
+}
+
+function shuffle(){
+board.sort(()=>Math.random()-0.5);
+draw();
+}
+
+function checkWin(){
+let win=[1,2,3,4,5,6,7,8,0];
+if(board.toString()===win.toString()){
+setTimeout(()=>alert("🎉 Você venceu!"),100);
+}
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
