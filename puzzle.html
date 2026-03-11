@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Puzzle Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .puzzle {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .piece {
+            width: 100px;
+            height: 100px;
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+        .empty {
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="puzzle" id="puzzle">
+        <div class="piece">1</div>
+        <div class="piece">2</div>
+        <div class="piece">3</div>
+        <div class="piece">4</div>
+        <div class="piece">5</div>
+        <div class="piece">6</div>
+        <div class="piece">7</div>
+        <div class="piece">8</div>
+        <div class="piece empty"></div>
+    </div>
+    <script>
+        const puzzle = document.getElementById('puzzle');
+        let pieces = Array.from(puzzle.children);
+        pieces = pieces.sort(() => Math.random() - 0.5);
+        pieces.forEach(piece => puzzle.appendChild(piece));
+    </script>
+</body>
+</html>
